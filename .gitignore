@@ -1,8 +1,5 @@
 # IntelliJ project files
 .idea
-*.iml
-out
-gen
 
 # CMake
 cmake-build-debug
