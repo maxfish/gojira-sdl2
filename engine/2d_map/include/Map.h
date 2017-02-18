@@ -60,12 +60,3 @@ protected:
 private:
     Graphics *_graphics;
 };
-
-//"version":1,
-//"width":24,
-//"height":20,
-//"tilewidth":32,
-//"tileheight":32,
-//"nextobjectid":8,
-//"orientation":"orthogonal",
-//"renderorder":"right-down",

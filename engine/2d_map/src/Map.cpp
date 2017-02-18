@@ -10,7 +10,9 @@
 Map::Map(Graphics &graphics) {
     _graphics = &graphics;
 
-    // The viewport defaults to the screen size
+    _offset = {0,0};
+
+    // The viewport defaults to the renderer size
     int w, h;
     SDL_GetRendererOutputSize(_graphics->getRenderer(), &w, &h);
     SDL_Rect viewport = {0, 0, w, h};
@@ -149,8 +151,5 @@ void Map::loadFromJSON(string file_path, string file_name) {
 
         _tile_sets->push_back(tileset);
     }
-//    {
-//                "image":"tiles.png",
-//    },
     SDL_Log("Map '%s/%s' loaded.", file_path.c_str(), file_name.c_str());
 }
