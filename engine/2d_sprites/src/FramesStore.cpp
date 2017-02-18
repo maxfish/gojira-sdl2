@@ -57,3 +57,7 @@ Animation *FramesStore::getAnimation(std::string animation_name) {
 Frame *FramesStore::getFrame(std::string frame_name) {
     return _frames[frame_name];
 }
+
+int FramesStore::getAnimationsFPS() {
+    return _fps;
+}

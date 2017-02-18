@@ -24,7 +24,7 @@ public:
 
     Frame *getFrame(std::string frame_name);
 
-//    void drawFrame(Graphics &graphics, Frame &frame, int dest_x, int dest_y, Uint16 flags);
+    int getAnimationsFPS();
 
 private:
     Graphics *_graphics;
