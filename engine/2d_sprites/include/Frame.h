@@ -6,7 +6,7 @@
 
 #include <string>
 #include <SDL_Image.h>
-#include <third_parties/json/json.hpp>
+#include <third_parties/json.hpp>
 
 
 class Frame {

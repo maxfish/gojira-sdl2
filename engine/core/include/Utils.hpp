@@ -6,7 +6,7 @@
 
 #include <fstream>
 #include <SDL_Rect.h>
-#include <third_parties/json/json.hpp>
+#include <third_parties/json.hpp>
 
 namespace Utils {
 

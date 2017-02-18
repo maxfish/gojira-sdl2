@@ -3,7 +3,7 @@
 //
 
 #include <string>
-#include <third_parties/json/json.hpp>
+#include <third_parties/json.hpp>
 #include "engine/2d_sprites/include/AnimationFrame.h"
 #include <engine/core/include/Utils.hpp>
 
