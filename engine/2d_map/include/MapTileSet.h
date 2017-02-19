@@ -3,11 +3,13 @@
 //
 
 #pragma once
+
 #include <SDL2/SDL.h>
 #include <string>
 #include <engine/core/include/Graphics.h>
 
 using namespace std;
+
 class Map;
 
 class MapTileSet {
@@ -34,11 +36,14 @@ protected:
     Uint16 _image_height;
 
     Uint16 _first_gid;
-//    Uint16 _last_gid;
     Uint16 _tiles_count;
     Uint16 _tiles_on_a_row;
     Uint8 _tile_width;
     Uint8 _tile_height;
     Uint8 _margin;
     Uint8 _spacing;
+
+    // TODO: Generic tile properties are not supported
+    // Custom properties
+    std::map<Uint32, bool> *_tile_collision;
 };

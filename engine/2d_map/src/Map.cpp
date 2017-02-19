@@ -5,12 +5,13 @@
 #include "engine/2d_map/include/Map.h"
 #include <engine/core/include/Utils.hpp>
 #include <engine/2d_map/include/MapTiledLayer.h>
+#include <engine/2d_map/include/MapObjectGroupLayer.h>
 
 
 Map::Map(Graphics &graphics) {
     _graphics = &graphics;
 
-    _offset = {0,0};
+    _offset = {0, 0};
 
     // The viewport defaults to the renderer size
     int w, h;
@@ -18,6 +19,7 @@ Map::Map(Graphics &graphics) {
     SDL_Rect viewport = {0, 0, w, h};
     this->setViewport(viewport);
 }
+
 void Map::setViewport(SDL_Rect viewport) {
     _viewport = viewport;
 }
@@ -29,9 +31,11 @@ SDL_Rect Map::getViewport() {
 void Map::setOffset(SDL_Point offset) {
     _offset = offset;
 }
+
 SDL_Point Map::getOffset() {
     return _offset;
 }
+
 Uint8 Map::getTileWidth() {
     return _tile_width;
 }
@@ -96,7 +100,7 @@ void Map::loadFromJSON(string file_path, string file_name) {
                 layer = new MapTiledLayer(this);
                 break;
             case MapLayerType_Objects:
-//                layer = new MapObjectGroupLayer();
+                layer = new MapObjectGroupLayer(this);
                 break;
             case MapLayerType_Unknown:
                 SDL_Log("MAP: Error loading layer type '%s'", type.c_str());
@@ -122,8 +126,21 @@ void Map::loadFromJSON(string file_path, string file_name) {
                     ((MapTiledLayer *) layer)->setData(data);
                     break;
                 }
-                case MapLayerType_Objects:
+                case MapLayerType_Objects: {
+                    //TODO: Support for polylines, ellipses and polygons
+                    vector<nlohmann::json> objects = layer_json["objects"];
+                    for (nlohmann::json object_json : objects) {
+                        MapObject *object = new MapObject();
+                        object->_id = object_json["id"];
+                        object->_name = object_json["name"];
+                        object->_type = object_json["type"];
+                        object->_visible = object_json["visible"];
+                        object->_rect = Utils::rectFromJson(object_json);
+                        object->_rotation = object_json["rotation"];
+                        ((MapObjectGroupLayer *) layer)->addObject(object->_name, object);
+                    }
                     break;
+                }
                 default:
                     break;
             }
@@ -149,7 +166,24 @@ void Map::loadFromJSON(string file_path, string file_name) {
         tileset->_tile_height = tileset_json["tileheight"];
         tileset->_tiles_on_a_row = tileset_json["columns"];
 
+        if (tileset_json.find("tileproperties") != tileset_json.end()) {
+            std::map<std::string, nlohmann::json> properties_values = tileset_json["tileproperties"];
+            for (auto tile_entry : properties_values) {
+                std::string tile_id = tile_entry.first;
+                Uint32 tile_id_int = (Uint32) std::atol(tile_id.c_str());
+                std::map<std::string, nlohmann::json> properties_json = tile_entry.second;
+                for (auto property_entry : properties_json) {
+                    std::string property_name = property_entry.first;
+                    if (property_name == "collision") {
+                        bool property_value = property_entry.second;
+                        (*(tileset->_tile_collision))[tile_id_int] = property_value;
+                    }
+                }
+            }
+        }
+
         _tile_sets->push_back(tileset);
     }
+
     SDL_Log("Map '%s/%s' loaded.", file_path.c_str(), file_name.c_str());
 }

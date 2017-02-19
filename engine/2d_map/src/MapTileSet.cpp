@@ -7,6 +7,7 @@
 
 MapTileSet::MapTileSet(Map *map) {
     _map = map;
+    _tile_collision = new std::map<Uint32, bool>;
 }
 
 void MapTileSet::drawTile(Graphics *graphics, Uint32 gid, int x, int y) {
