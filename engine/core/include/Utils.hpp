@@ -45,4 +45,56 @@ namespace Utils {
             return default_value;
         }
     }
+
+    inline std::vector<SDL_Point> bresenhamSteps(int x0, int y0, int x1, int y1) {
+        std::vector<SDL_Point> steps;
+
+        int delta_x = abs(x1 - x0);
+        int delta_y = abs(y1 - y0);
+        int step_x = x0 < x1 ? 1 : -1;
+        int step_y = y0 < y1 ? 1 : -1;
+        int error = (delta_x > delta_y ? delta_x : -delta_y) / 2, e2;
+
+        for (;;) {
+            steps.push_back({x0, y0});
+            if (x0 == x1 && y0 == y1) {
+                break;
+            }
+            e2 = error;
+            if (e2 > -delta_x) {
+                error -= delta_y;
+                x0 += step_x;
+            }
+            if (e2 < delta_y) {
+                error += delta_x;
+                y0 += step_y;
+            }
+        }
+
+        return steps;
+    }
+
+    inline void bresenhamSteps(int x0, int y0, int x1, int y1, std::function<void (int,int)> func) {
+        int delta_x = abs(x1 - x0);
+        int delta_y = abs(y1 - y0);
+        int step_x = x0 < x1 ? 1 : -1;
+        int step_y = y0 < y1 ? 1 : -1;
+        int error = (delta_x > delta_y ? delta_x : -delta_y) / 2, e2;
+
+        for (;;) {
+            func(x0, y0);
+            if (x0 == x1 && y0 == y1) {
+                break;
+            }
+            e2 = error;
+            if (e2 > -delta_x) {
+                error -= delta_y;
+                x0 += step_x;
+            }
+            if (e2 < delta_y) {
+                error += delta_x;
+                y0 += step_y;
+            }
+        }
+    }
 }
