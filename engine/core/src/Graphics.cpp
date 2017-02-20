@@ -8,6 +8,7 @@ Graphics::Graphics(const char *window_title, int screen_width, int screen_height
 
 Graphics::~Graphics() {
     SDL_DestroyWindow(_window);
+    SDL_DestroyRenderer(_renderer);
 }
 
 SDL_Texture *Graphics::loadImage(const std::string &filePath) {
