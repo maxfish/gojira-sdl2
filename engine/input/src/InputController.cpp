@@ -54,7 +54,7 @@ void InputController::process_event(const SDL_Event &event) {
                 SDL_Log("Disconnected joystick <%d>.", joystick_id);
             } else {
                 // TEMP: This happens with the XBox360 Driver for OSX. Joysticks' indices are shuffled during hot-plugging
-                SDL_Log("Couldn't find an index for joystick <%d>.", joystick_id);
+//                SDL_Log("Couldn't find an index for joystick <%d>.", joystick_id);
             }
             _num_joysticks--;
             break;
@@ -79,7 +79,7 @@ Joystick *InputController::getJoystickFromIndex(int joystick_index) {
     if (joystick->is_connected()) {
         return _joysticks[joystick_index];
     } else {
-        SDL_Log("Joystick #%d <%p> not initialized.", joystick_index, &joystick);
+//        SDL_Log("Joystick #%d <%p> not initialized.", joystick_index, &joystick);
         return nullptr;
     }
 }
