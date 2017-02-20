@@ -21,6 +21,8 @@ public:
 
     void draw(Graphics *graphics);
 
+    bool rectCollides(SDL_Rect rect, SDL_Point velocity);
+
 protected:
     std::vector<Uint32> *_tiles;
 };

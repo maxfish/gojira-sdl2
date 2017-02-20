@@ -46,3 +46,23 @@ void MapTiledLayer::draw(Graphics *graphics) {
         tile_y++;
     }
 }
+
+bool MapTiledLayer::rectCollides(SDL_Rect rect, SDL_Point velocity) {
+    // TODO : WIP
+//    Uint8 tile_width = _map->getTileWidth();
+//    Uint8 tile_height = _map->getTileHeight();
+//    SDL_Rect tile_rect = {0,0,tile_width,tile_height};
+//
+//    for (Uint8 tile_y=0; tile_y<_height; tile_y++) {
+//    for (Uint8 tile_x=0; tile_x<_width; tile_x++) {
+//        Uint32 tile_index = tile_x + tile_y * _width;
+//        Uint32 gid = _tiles->at(tile_index);
+//        if (gid != 0) {
+//            MapTileSet *set = _map->tileSetFromGid(gid);
+//        }
+//    }
+//    }
+//    MapTileSet *set = _map->tileSetFromGid(gid);
+    return false;
+}
+
