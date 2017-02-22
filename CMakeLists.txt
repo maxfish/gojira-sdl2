@@ -16,11 +16,25 @@ include_directories(
         ${SDL2_TTF_INCLUDE_DIR}
 )
 
+# Box2D library
+set(LIB_BOX2D_DIR "${CMAKE_CURRENT_SOURCE_DIR}/externals/box2d/Box2D/Box2D")
+ExternalProject_Add(box2d
+        SOURCE_DIR ${LIB_BOX2D_DIR}
+        CMAKE_ARGS "-DCMAKE_INSTALL_PREFIX=${EXTERNAL_INSTALL_DIR}"
+        INSTALL_COMMAND ""
+        UPDATE_COMMAND ""
+        )
+include_directories("${CMAKE_CURRENT_SOURCE_DIR}/externals/box2d/Box2D")
+#include_directories("${CMAKE_CURRENT_SOURCE_DIR}/externals/box2d/Box2D/Box2D")
+file(GLOB_RECURSE BOX2D_SRC "${LIB_BOX2D_DIR}/*.cpp")
+file(GLOB_RECURSE BOX2D_INCLUDE "${LIB_BOX2D_DIR}/*.h")
+
 # Setup library
 file(GLOB_RECURSE ENGINE_SRC "engine/*.cpp")
 file(GLOB_RECURSE ENGINE_INCLUDE "engine/*.h")
 
 include_directories(. third_parties)
 
-set(SOURCE_FILES ${ENGINE_SRC} ${ENGINE_INCLUDE})
+set(SOURCE_FILES ${ENGINE_SRC} ${ENGINE_INCLUDE} ${BOX2D_SRC})
 add_library(gojira_sdl2 ${SOURCE_FILES})
+add_dependencies(gojira_sdl2 box2d)
