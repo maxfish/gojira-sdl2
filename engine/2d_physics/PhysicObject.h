@@ -11,8 +11,8 @@ class PhysicObject {
     friend class PhysicWorld;
 
 public:
-    static const float32 DEFAULT_DENSITY = 1.0;
-    static const float32 DEFAULT_FRICTION = 0.3;
+    constexpr static const float32 DEFAULT_DENSITY = 1.0;
+    constexpr static const float32 DEFAULT_FRICTION = 0.3;
 
     PhysicObject(b2World *world);
 

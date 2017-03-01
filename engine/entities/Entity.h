@@ -5,7 +5,7 @@
 #pragma once
 
 #include <engine/core/Graphics.h>
-#include <engine/2d_sprites/Sprite.h>
+#include <engine/2d_sprites/bitmap/Sprite.h>
 
 class Entity {
 public:
