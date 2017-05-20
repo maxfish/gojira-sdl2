@@ -27,6 +27,10 @@ namespace SpriterEngine {
         return nullptr;
     }
 
+    SpriterFileDocumentWrapper *ExampleFileFactory::newScmlDocumentWrapper() {
+        return nullptr;
+    }
+
     SpriterFileDocumentWrapper *ExampleFileFactory::newSconDocumentWrapper() {
         return new JSONSpriterFileDocumentWrapper();
     }
